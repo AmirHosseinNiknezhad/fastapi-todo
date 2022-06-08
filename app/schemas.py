@@ -13,8 +13,24 @@ class TodoBase(BaseModel):
 
 class TodoCreate(TodoBase):
     description: Union[str, None] = None
-    done: bool = False
     importance: conint(ge=1, le=3) = 1
+
+
+class Todo(TodoBase):
+    id: int
+    description: Union[str, None] = None
+    done: bool
+    importance: conint(ge=1, le=3)
+    created: datetime
+
+
+class TodoInDb(TodoBase):
+    id: int
+    description: Union[str, None] = None
+    done: bool
+    importance: conint(ge=1, le=3)
+    owner_id: int
+    created: datetime
 
 
 class UserBase(BaseModel):
@@ -25,29 +41,11 @@ class UserBase(BaseModel):
         orm_mode = True
 
 
-class Todo(TodoBase):
-    id: int
-    description: Union[str, None] = None
-    done: bool
-    importance: conint(ge=1, le=3)
-    owner_id: int
-    owner: UserBase
-    created: datetime
-
-
 class UserCreate(UserBase):
     password: str
 
 
 class User(UserBase):
-    id: int
-    active: bool
-    created: datetime
-    todos: list[Todo] = []
-
-
-class UserInDB(UserBase):
-    password: str
     id: int
     active: bool
     created: datetime

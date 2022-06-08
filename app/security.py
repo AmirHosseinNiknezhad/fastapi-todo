@@ -32,7 +32,7 @@ def get_password_hash(password):
 
 
 def authenticate_user(username: str, password: str, db: Session):
-    user: models.User = crud.get_user_by_username(db=db, username=username)
+    user = crud.get_user_by_username(db=db, username=username)
     if not user:
         return False
     if not verify_password(password, user.password):
@@ -73,7 +73,7 @@ def get_current_user(
     return user
 
 
-def get_current_active_user(current_user: models.User = Depends(get_current_user)):
+def get_current_active_user(current_user=Depends(get_current_user)):
     if not current_user.active:
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
