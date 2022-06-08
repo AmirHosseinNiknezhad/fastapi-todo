@@ -47,3 +47,23 @@ def get_user_todos(user: models.User, db: Session, skip: int = 0, limit: int = 1
         .limit(limit)
         .all()
     )
+
+
+def delete_user_by_id(db: Session, user_id: int):
+    db.query(models.User).filter(models.User.id == user_id).delete(
+        synchronize_session=False
+    )
+    db.commit()
+    return
+
+
+def toggle_active_user_by_id(db: Session, user_id: int):
+
+    current_status = (
+        db.query(models.User).filter(models.User.id == user_id).first().active
+    )
+    db.query(models.User).filter(models.User.id == user_id).update(
+        {"active": not current_status}, synchronize_session=False
+    )
+    db.commit()
+    return

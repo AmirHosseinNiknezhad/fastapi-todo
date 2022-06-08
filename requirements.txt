@@ -2,7 +2,6 @@ alembic==1.7.7
 anyio==3.5.0
 asgiref==3.5.0
 astroid==2.11.5
-autopep8==1.6.0
 bcrypt==3.2.2
 black==22.3.0
 cffi==1.15.0
@@ -28,10 +27,8 @@ pathspec==0.9.0
 platformdirs==2.5.1
 psycopg2-binary==2.9.3
 pyasn1==0.4.8
-pycodestyle==2.8.0
 pycparser==2.21
 pydantic==1.9.0
-pyflakes==2.4.0
 python-dotenv==0.20.0
 python-jose==3.3.0
 python-multipart==0.0.5
@@ -49,4 +46,3 @@ uvloop==0.16.0
 watchgod==0.8.2
 websockets==10.2
 wrapt==1.14.1
-yapf==0.32.0
