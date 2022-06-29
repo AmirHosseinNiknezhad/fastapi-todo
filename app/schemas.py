@@ -24,6 +24,13 @@ class Todo(TodoBase):
     created: datetime
 
 
+class TodoUpdate(TodoBase):
+    id: int
+    description: Union[str, None] = None
+    done: bool
+    importance: conint(ge=1, le=3)
+
+
 class TodoInDb(TodoBase):
     id: int
     description: Union[str, None] = None

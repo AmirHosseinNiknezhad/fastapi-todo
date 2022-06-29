@@ -39,17 +39,26 @@ def get_todos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Todo).offset(skip).limit(limit).all()
 
 
-def get_user_todos(user: models.User, db: Session, skip: int = 0, limit: int = 100):
+def get_user_todos(user_id: int, db: Session, skip: int = 0, limit: int = 100):
     return (
         db.query(models.Todo)
-        .filter(models.Todo.owner == user)
+        .filter(models.Todo.owner_id == user_id)
         .offset(skip)
         .limit(limit)
         .all()
     )
 
 
-def delete_user_by_id(db: Session, user_id: int):
+# def update_user_todo(
+#     db: Session,
+#     owner_id: int,
+#     todo_id: int,
+#     new_todo: schemas.TodoUpdate
+# ):
+#     return db.query(models.Todo).filter(models.Todo.owner_id == owner_id, )
+
+
+def delete_user(db: Session, user_id: int):
     db.query(models.User).filter(models.User.id == user_id).delete(
         synchronize_session=False
     )
