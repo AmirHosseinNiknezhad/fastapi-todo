@@ -1,3 +1,4 @@
+from pydoc import describe
 from sqlalchemy.orm import Session
 
 from . import models, schemas
@@ -49,21 +50,24 @@ def get_user_todos(user_id: int, db: Session, skip: int = 0, limit: int = 100):
     )
 
 
-# def update_user_todo(
-#     db: Session,
-#     owner_id: int,
-#     todo_id: int,
-#     new_todo: schemas.TodoUpdate
-# ):
-#     return db.query(models.Todo).filter(models.Todo.owner_id == owner_id, )
+def get_todo_by_id(id: int, db: Session):
+    return db.query(models.Todo).filter(models.Todo.id == id).first()
 
 
-def delete_user(db: Session, user_id: int):
-    db.query(models.User).filter(models.User.id == user_id).delete(
-        synchronize_session=False
-    )
+def update_todo(
+    id: int,
+    new_todo: schemas.TodoUpdate,
+    db: Session,
+):
+    query = db.query(models.Todo).filter(models.Todo.id == id)
+    query.update(new_todo.dict(), synchronize_session=False)
     db.commit()
-    return
+    return query.first()
+
+
+def delete_todo(id: int, db: Session):
+    query = db.query(models.Todo).filter(models.Todo.id == id).delete()
+    db.commit()
 
 
 def toggle_active_user_by_id(db: Session, user_id: int):

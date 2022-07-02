@@ -25,10 +25,9 @@ class Todo(TodoBase):
 
 
 class TodoUpdate(TodoBase):
-    id: int
     description: Union[str, None] = None
-    done: bool
-    importance: conint(ge=1, le=3)
+    done: bool = False
+    importance: conint(ge=1, le=3) = 1
 
 
 class TodoInDb(TodoBase):
