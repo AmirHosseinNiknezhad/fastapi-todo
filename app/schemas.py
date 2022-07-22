@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union
+from typing import Optional, Union
 
 from pydantic import BaseModel, EmailStr, conint
 
@@ -25,9 +25,10 @@ class Todo(TodoBase):
 
 
 class TodoUpdate(TodoBase):
-    description: Union[str, None] = None
-    done: bool = False
-    importance: conint(ge=1, le=3) = 1
+    title: Optional[str]
+    description: Optional[str]
+    done: Optional[bool]
+    importance: Optional[conint(ge=1, le=3)]
 
 
 class TodoInDb(TodoBase):

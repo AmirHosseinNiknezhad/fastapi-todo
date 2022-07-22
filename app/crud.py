@@ -60,7 +60,13 @@ def update_todo(
     db: Session,
 ):
     query = db.query(models.Todo).filter(models.Todo.id == id)
-    query.update(new_todo.dict(), synchronize_session=False)
+    new = new_todo.dict()
+    updates = new_todo.dict()
+    for key in new.keys():
+        if not new[key]:
+            updates.pop(key)
+    print(updates)
+    query.update(updates, synchronize_session=False)
     db.commit()
     return query.first()
 

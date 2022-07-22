@@ -45,7 +45,7 @@ def update_todo(
     return crud.delete_todo(db=db, id=todo_id)
 
 
-@router.put("/{todo_id}", response_model=schemas.Todo)
+@router.patch("/{todo_id}", response_model=schemas.Todo)
 def update_todo(
     todo: schemas.TodoUpdate,
     todo_id: int,
