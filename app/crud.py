@@ -5,7 +5,7 @@ from . import models, schemas
 
 
 def create_user(db: Session, user: schemas.UserCreate):
-    db_user = models.User(**user.dict())
+    db_user = models.User(**user.model_dump())
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
@@ -13,7 +13,7 @@ def create_user(db: Session, user: schemas.UserCreate):
 
 
 def create_user_todo(db: Session, todo: schemas.TodoCreate, user_id: int):
-    db_todo = models.Todo(**todo.dict(), owner_id=user_id)
+    db_todo = models.Todo(**todo.model_dump(), owner_id=user_id)
     db.add(db_todo)
     db.commit()
     db.refresh(db_todo)
@@ -60,12 +60,8 @@ def update_todo(
     db: Session,
 ):
     query = db.query(models.Todo).filter(models.Todo.id == id)
-    new = new_todo.dict()
-    updates = new_todo.dict()
-    for key in new.keys():
-        if not new[key]:
-            updates.pop(key)
-    print(updates)
+    request_feilds = new_todo.model_dump()
+    updates = {k: v for k, v in request_feilds.items() if v is not None}
     query.update(updates, synchronize_session=False)
     db.commit()
     return query.first()
@@ -77,7 +73,6 @@ def delete_todo(id: int, db: Session):
 
 
 def toggle_active_user_by_id(db: Session, user_id: int):
-
     current_status = (
         db.query(models.User).filter(models.User.id == user_id).first().active
     )

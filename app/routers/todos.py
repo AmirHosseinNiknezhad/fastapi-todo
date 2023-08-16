@@ -26,7 +26,7 @@ def read_todos(
 
 
 @router.delete("/{todo_id}", status_code=status.HTTP_204_NO_CONTENT)
-def update_todo(
+def delete_todo(
     todo_id: int,
     db: Session = Depends(get_db),
     current_user=Depends(security.get_current_active_user),
