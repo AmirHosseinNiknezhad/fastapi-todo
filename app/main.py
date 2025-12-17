@@ -23,7 +23,7 @@ app.include_router(admin.router)
 @app.get("/", tags=["Home"], include_in_schema=False)
 def welcome():
     html_content = """
-    <h1>Welcome! click <a href="/docs">here</a> for the documentation!</h1>
+    <h1>Welcome to my todo api! click <a href="/docs">here</a> for the documentation!</h1>
     """
     return HTMLResponse(content=html_content, status_code=200)
 
