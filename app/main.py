@@ -28,6 +28,6 @@ def welcome():
     return HTMLResponse(content=html_content, status_code=200)
 
 
-@app.get("/favicon.ico", include_in_schema=False)
-def favicon():
-    return FileResponse(path="./icon.png")
+# @app.get("/favicon.ico", include_in_schema=False)
+# def favicon():
+#     return FileResponse(path="./icon.png")
